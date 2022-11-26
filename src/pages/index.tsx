@@ -1,15 +1,10 @@
-import Head from 'next/head'
+import { Layout } from 'antd'
+
 
 export default function Home() {
   return (
-    <div>
-      <Head>
-        <title>Repository Viability | AnyWay</title>
-
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+    <Layout style={{ height: '100%' }}>
       <h1>Hello</h1>
-    </div>
+    </Layout>
   )
 }
