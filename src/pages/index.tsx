@@ -1,14 +1,14 @@
-import { Layout } from 'antd'
+import { Layout } from 'antd';
+import { useState } from 'react';
 
-import { useState } from 'react'
-import { Header } from '../components/Header'
-import { RepositoryType } from '../types/repository'
+import { Header } from '../components/Header';
+import { RepositoryType } from '../types/repository';
 
 export default function Home() {
-  const [repository, setRepository] = useState<RepositoryType>()
+  const [repository, setRepository] = useState<RepositoryType>();
 
-  function handleSearchRepository(repo:RepositoryType) {
-    setRepository(repo)
+  function handleSearchRepository(repo: RepositoryType) {
+    setRepository(repo);
   }
 
   return (
@@ -25,5 +25,5 @@ export default function Home() {
         <li>open_issues_count: {repository?.open_issues_count}</li>
       </ul>
     </Layout>
-  )
+  );
 }
