@@ -33,7 +33,7 @@ export function Header({ onSearchSuccess }: HeaderProps) {
     <Layout.Header className={styles.header}>
       <Typography.Title level={1}>Repository Viability</Typography.Title>
 
-      <Input.Search size='large' placeholder='Search: owner/repo' onSearch={handleSearch} loading={loading} enterButton autoFocus />
+      <Input.Search size='large' placeholder='Search: owner/repo'  onSearch={handleSearch} loading={loading} allowClear enterButton autoFocus />
     </Layout.Header>
   )
 }
