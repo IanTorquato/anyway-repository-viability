@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { ChartBar } from '../components/ChartBar';
 import { ChartLine } from '../components/ChartLine';
 import { Header } from '../components/Header';
-import { commitsByWeekSerialized } from '../mocks/commitsByWeek';
 import { RepositoryType } from '../types/repository';
 
 export default function Home() {
@@ -13,8 +12,6 @@ export default function Home() {
   function handleSearchRepository(repo: RepositoryType) {
     setRepository(repo);
   }
-
-  console.log(commitsByWeekSerialized);
 
   return (
     <Layout style={{ height: '100%' }}>
