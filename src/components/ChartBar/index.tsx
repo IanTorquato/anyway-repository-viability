@@ -33,51 +33,27 @@ export function ChartBar() {
       {loading ? (
         <Skeleton />
       ) : (
-        <Row gutter={[16, 0]}>
+        <Row gutter={[24, 24]} style={{ width: '100%', margin: '16px 0' }}>
           {attributeTitles.map((title, index) => (
-            <Col key={title} xs={12}>
+            <Col key={title} span={12}>
               <ChartCard
                 content={
                   <Bar
                     data={{
                       labels: [title],
                       datasets: [
-                        {
-                          label: 'React',
-                          data: [dataReact![attributeKeys[index]]],
-                          backgroundColor: '#61dafb',
-                        },
-                        {
-                          label: 'Angular',
-                          data: [dataAngular![attributeKeys[index]]],
-                          backgroundColor: '#bb002e',
-                        },
-                        {
-                          label: 'Vue',
-                          data: [dataVue![attributeKeys[index]]],
-                          backgroundColor: '#3eaf7c',
-                        },
-                        {
-                          label: 'Svelte',
-                          data: [dataSvelte![attributeKeys[index]]],
-                          backgroundColor: '#f23b00',
-                        },
-                        {
-                          label: 'Jquery',
-                          data: [dataJquery![attributeKeys[index]]],
-                          backgroundColor: '#1064a5',
-                        },
+                        { label: 'React', data: [dataReact![attributeKeys[index]]], backgroundColor: '#61dafb' },
+                        { label: 'Angular', data: [dataAngular![attributeKeys[index]]], backgroundColor: '#bb002e' },
+                        { label: 'Vue', data: [dataVue![attributeKeys[index]]], backgroundColor: '#3eaf7c' },
+                        { label: 'Svelte', data: [dataSvelte![attributeKeys[index]]], backgroundColor: '#f23b00' },
+                        { label: 'Jquery', data: [dataJquery![attributeKeys[index]]], backgroundColor: '#1064a5' },
                       ],
                     }}
                     options={{
                       responsive: true,
                       plugins: {
-                        legend: {
-                          position: 'top' as const,
-                        },
-                        title: {
-                          display: false,
-                        },
+                        legend: { position: 'top' as const },
+                        title: { display: false },
                       },
                     }}
                   />
