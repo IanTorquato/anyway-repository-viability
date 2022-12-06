@@ -1,4 +1,4 @@
-import { Input, Layout, Typography } from 'antd';
+import { Layout, Typography } from 'antd';
 import { useState } from 'react';
 
 import { githubApi } from '../../core/api.github';
@@ -31,9 +31,9 @@ export function Header({ onSearchSuccess }: HeaderProps) {
 
   return (
     <Layout.Header className={styles.header}>
-      <Typography.Title level={1}>Repository Viability</Typography.Title>
+      <Typography.Title level={1}>React Analytics Dashboard</Typography.Title>
 
-      <Input.Search loading={loading} placeholder="Search: owner/repo" size="large" allowClear autoFocus enterButton onSearch={handleSearch} />
+      {/* <Input.Search loading={loading} placeholder="Search: owner/repo" size="large" allowClear autoFocus enterButton onSearch={handleSearch} /> */}
     </Layout.Header>
   );
 }
