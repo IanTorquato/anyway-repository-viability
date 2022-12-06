@@ -1,4 +1,4 @@
-import { Col, Row } from 'antd';
+import { Col, Row, Skeleton, Spin } from 'antd';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
@@ -8,77 +8,86 @@ import { ChartCard } from '../ChartCard';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+// const labels = ['Watch', 'Stars', 'Issues', 'Forks'];
+
+// const reactInfos = [6649, 198640, 1109, 41242];
+// const angularInfos = [3045, 85273, 1323, 22632];
+// const vueInfos = [6075, 201064, 592, 33115];
+// const svelteInfos = [877, 63581, 835, 3107];
+// const jqueryInfos = [3246, 57001, 94, 20658];
+
+const attributeTitles = ['Forks', 'Issues', 'Stars', 'Watchers'];
+const attributeKeys = ['forks_count', 'open_issues_count', 'stargazers_count', 'watchers_count'];
+
 export function ChartBar() {
-  const labels = ['Watch', 'Stars', 'Issues', 'Forks'];
+  const { data: dataReact, loading: loadingReact } = useFetch<Record<string, unknown>>('/facebook/react');
+  const { data: dataJquery, loading: loadingJquery } = useFetch<Record<string, unknown>>('/jquery/jquery');
+  const { data: dataAngular, loading: loadingAngular } = useFetch<Record<string, unknown>>('/angular/angular');
+  const { data: dataSvelte, loading: loadingSvelte } = useFetch<Record<string, unknown>>('/sveltejs/svelte');
+  const { data: dataVue, loading: loadingVue } = useFetch<Record<string, unknown>>('/vuejs/vue');
 
-  const reactInfos = [6649, 198640, 1109, 41242];
-
-  const angularInfos = [3045, 85273, 1323, 22632];
-
-  const vueInfos = [6075, 201064, 592, 33115];
-
-  const svelteInfos = [877, 63581, 835, 3107];
-
-  const jqueryInfos = [3246, 57001, 94, 20658];
-
-  const { data, loading } = useFetch('facebook/react');
-
-  console.log({ data, loading });
+  const loading = loadingReact || loadingJquery || loadingAngular || loadingSvelte || loadingVue;
 
   return (
-    <Row gutter={[16, 0]}>
-      {labels.map((name, index) => (
-        <Col key={name} xs={12}>
-          <ChartCard
-            content={
-              <Bar
-                data={{
-                  labels: [name],
-                  datasets: [
-                    {
-                      label: 'React',
-                      data: [reactInfos[index]],
-                      backgroundColor: '#61dafb',
-                    },
-                    {
-                      label: 'Angular',
-                      data: [angularInfos[index]],
-                      backgroundColor: '#bb002e',
-                    },
-                    {
-                      label: 'Vue',
-                      data: [vueInfos[index]],
-                      backgroundColor: '#3eaf7c',
-                    },
-                    {
-                      label: 'Svelte',
-                      data: [svelteInfos[index]],
-                      backgroundColor: '#f23b00',
-                    },
-                    {
-                      label: 'Jquery',
-                      data: [jqueryInfos[index]],
-                      backgroundColor: '#1064a5',
-                    },
-                  ],
-                }}
-                options={{
-                  responsive: true,
-                  plugins: {
-                    legend: {
-                      position: 'top' as const,
-                    },
-                    title: {
-                      display: false,
-                    },
-                  },
-                }}
+    <Spin spinning={loading}>
+      {loading ? (
+        <Skeleton />
+      ) : (
+        <Row gutter={[16, 0]}>
+          {attributeTitles.map((title, index) => (
+            <Col key={title} xs={12}>
+              <ChartCard
+                content={
+                  <Bar
+                    data={{
+                      labels: [title],
+                      datasets: [
+                        {
+                          label: 'React',
+                          data: [dataReact![attributeKeys[index]]],
+                          backgroundColor: '#61dafb',
+                        },
+                        {
+                          label: 'Angular',
+                          data: [dataAngular![attributeKeys[index]]],
+                          backgroundColor: '#bb002e',
+                        },
+                        {
+                          label: 'Vue',
+                          data: [dataVue![attributeKeys[index]]],
+                          backgroundColor: '#3eaf7c',
+                        },
+                        {
+                          label: 'Svelte',
+                          data: [dataSvelte![attributeKeys[index]]],
+                          backgroundColor: '#f23b00',
+                        },
+                        {
+                          label: 'Jquery',
+                          data: [dataJquery![attributeKeys[index]]],
+                          backgroundColor: '#1064a5',
+                        },
+                      ],
+                    }}
+                    options={{
+                      responsive: true,
+                      plugins: {
+                        legend: {
+                          position: 'top' as const,
+                        },
+                        title: {
+                          display: false,
+                        },
+                      },
+                    }}
+                  />
+                }
+                title={title}
               />
-            }
-            title={name}
-          />
-        </Col>
-      ))}
-    </Row>
+            </Col>
+          ))}
+        </Row>
+      )}
+    </Spin>
   );
 }
