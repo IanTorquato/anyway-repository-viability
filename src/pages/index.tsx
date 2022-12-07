@@ -1,21 +1,16 @@
 import { Layout } from 'antd';
-import { useState } from 'react';
+import { GetStaticPropsResult } from 'next';
 
-import { ChartBar } from '../components/ChartBar';
-import { ChartLine } from '../components/ChartLine';
+import { ChartBar, ChartBarProps } from '../components/ChartBar';
 import { Header } from '../components/Header';
-import { RepositoryType } from '../types/repository';
+import { api } from '../core/api';
 
-export default function Home() {
-  const [repository, setRepository] = useState<RepositoryType>();
+const timeToRevalidate = 60 * 15; // In seconds - 15m
 
-  function handleSearchRepository(repo: RepositoryType) {
-    setRepository(repo);
-  }
-
+export default function Home(props: ChartBarProps) {
   return (
     <Layout style={{ height: '100%' }}>
-      <Header onSearchSuccess={handleSearchRepository} />
+      <Header onSearchSuccess={() => {}} />
 
       {/* <ul>
         <li>name: {repository?.name}</li>
@@ -27,8 +22,22 @@ export default function Home() {
         <li>open_issues_count: {repository?.open_issues_count}</li>
       </ul> */}
 
-      <ChartBar />
-      <ChartLine />
+      <ChartBar {...props} />
+
+      {/* <ChartLine /> */}
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  const { data: dataReact } = await api.get('/facebook/react');
+  const { data: dataJquery } = await api.get('/jquery/jquery');
+  const { data: dataAngular } = await api.get('/angular/angular');
+  const { data: dataSvelte } = await api.get('/sveltejs/svelte');
+  const { data: dataVue } = await api.get('/vuejs/vue');
+
+  return {
+    props: { dataReact, dataJquery, dataAngular, dataSvelte, dataVue },
+    revalidate: timeToRevalidate,
+  } as GetStaticPropsResult<ChartBarProps>;
 }
