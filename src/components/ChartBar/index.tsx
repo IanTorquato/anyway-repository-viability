@@ -1,4 +1,5 @@
 import { Col, Row, Skeleton, Spin } from 'antd';
+import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
@@ -28,6 +29,8 @@ export function ChartBar() {
 
   const loading = loadingReact || loadingJquery || loadingAngular || loadingSvelte || loadingVue;
 
+  const { md } = useBreakpoint();
+
   return (
     <Spin spinning={loading}>
       {loading ? (
@@ -35,7 +38,7 @@ export function ChartBar() {
       ) : (
         <Row gutter={[24, 24]} style={{ width: '100%', margin: '16px 0' }}>
           {attributeTitles.map((title, index) => (
-            <Col key={title} span={12}>
+            <Col key={title} lg={12} xs={24}>
               <ChartCard
                 content={
                   <Bar
@@ -56,6 +59,7 @@ export function ChartBar() {
                         title: { display: false },
                       },
                     }}
+                    redraw={md}
                   />
                 }
                 title={title}
