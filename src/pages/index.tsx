@@ -2,6 +2,7 @@ import { Layout } from 'antd';
 import { GetStaticPropsResult } from 'next';
 
 import { ChartBar, ChartBarProps } from '../components/ChartBar';
+import { ChartLine } from '../components/ChartLine';
 import { Header } from '../components/Header';
 import { api } from '../core/api';
 
@@ -10,7 +11,7 @@ const timeToRevalidate = 60 * 15; // In seconds - 15m
 export default function Home(props: ChartBarProps) {
   return (
     <Layout style={{ height: '100%' }}>
-      <Header onSearchSuccess={() => {}} />
+      <Header />
 
       {/* <ul>
         <li>name: {repository?.name}</li>
@@ -24,7 +25,7 @@ export default function Home(props: ChartBarProps) {
 
       <ChartBar {...props} />
 
-      {/* <ChartLine /> */}
+      <ChartLine />
     </Layout>
   );
 }
