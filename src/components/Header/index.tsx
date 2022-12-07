@@ -1,15 +1,11 @@
-import { Input, Layout, Typography } from 'antd'
+import { Layout, Typography } from 'antd';
 
-import styles from './header.module.css'
+import styles from './header.module.css';
 
-type HeaderProps = {}
-
-export function Header({}: HeaderProps) {
+export function Header() {
   return (
     <Layout.Header className={styles.header}>
-      <Typography.Title level={1}>Repository Viability</Typography.Title>
-
-      <Input.Search size='large' placeholder='Buscar repositório' />
+      <Typography.Title level={1}>React Analytics Dashboard</Typography.Title>
     </Layout.Header>
-  )
+  );
 }

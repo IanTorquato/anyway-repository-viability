@@ -1,5 +1,11 @@
 {
+  "cSpell.language": "en,pt-BR",
   "window.zoomLevel": 0,
+  "eslint.packageManager": "yarn",
+  "editor.tabSize": 2,
+  "editor.rulers": [
+    156
+  ],
   "cSpell.words": [
     "antd"
   ]
